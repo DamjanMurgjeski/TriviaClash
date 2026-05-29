@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "700382746155",
+    "project_id": "triviaclash-f3d8a",
+    "storage_bucket": "triviaclash-f3d8a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700382746155:android:7999f4f3745ac0a8cd3c6e",
+        "android_client_info": {
+          "package_name": "com.triviaclash.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq4wp-sHxMcavatNaMDkZ-9wSlordFlCI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
