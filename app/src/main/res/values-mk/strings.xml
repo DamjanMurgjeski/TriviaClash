@@ -1,3 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App -->
+    <string name="app_name">TriviaClash</string>
+
+    <!-- Auth -->
+    <string name="login">Најава</string>
+    <string name="register">Регистрација</string>
+    <string name="email">Е-пошта</string>
+    <string name="password">Лозинка</string>
+    <string name="forgot_password">Заборавена лозинка?</string>
+    <string name="sign_in_google">Најави се со Google</string>
+    <string name="sign_in_anonymous">Продолжи како гостин</string>
+    <string name="no_account">Немаш акаунт?</string>
+    <string name="already_account">Веќе имаш акаунт?</string>
+    <string name="username">Корисничко име</string>
+    <string name="confirm_password">Потврди лозинка</string>
+
+    <!-- Home -->
+    <string name="home">Почетна</string>
+    <string name="welcome_back">Добредојде</string>
+    <string name="daily_challenge">Дневен предизвик</string>
+    <string name="featured_categories">Категории</string>
+    <string name="recent_quizzes">Неодамнешни квизови</string>
+    <string name="play_now">Играј сега</string>
+    <string name="level">Ниво</string>
+    <string name="xp">ИС</string>
+    <string name="coins">Монети</string>
+
+    <!-- Categories -->
+    <string name="categories">Категории</string>
+    <string name="sports">Спорт</string>
+    <string name="movies">Филмови</string>
+    <string name="programming">Програмирање</string>
+    <string name="gaming">Гејминг</string>
+    <string name="geography">Географија</string>
+    <string name="science">Наука</string>
+
+    <!-- Quiz -->
+    <string name="question">Прашање</string>
+    <string name="time_left">Преостанато време</string>
+    <string name="score">Резултат</string>
+    <string name="correct">Точно!</string>
+    <string name="wrong">Неточно!</string>
+    <string name="quiz_complete">Квизот заврши!</string>
+    <string name="play_again">Играј повторно</string>
+    <string name="back_home">Назад на почетна</string>
+    <string name="correct_answers">Точни одговори</string>
+    <string name="total_xp_earned">Освоени ИС</string>
+
+    <!-- Leaderboard -->
+    <string name="leaderboard">Ранг листа</string>
+    <string name="global">Глобална</string>
+    <string name="weekly">Неделна</string>
+    <string name="rank">Ранг</string>
+
+    <!-- Profile -->
+    <string name="profile">Профил</string>
+    <string name="statistics">Статистики</string>
+    <string name="achievements">Достигнувања</string>
+    <string name="match_history">Историја</string>
+    <string name="total_games">Вкупно игри</string>
+    <string name="win_rate">Процент на победи</string>
+    <string name="highest_score">Највисок резултат</string>
+
+    <!-- Settings -->
+    <string name="settings">Поставки</string>
+    <string name="dark_mode">Темен режим</string>
+    <string name="language">Јазик</string>
+    <string name="notifications">Известувања</string>
+    <string name="logout">Одјава</string>
+    <string name="logout_confirm">Дали сакаш да се одјавиш?</string>
+    <string name="yes">Да</string>
+    <string name="no">Не</string>
+
+    <!-- General -->
+    <string name="loading">Се вчитува...</string>
+    <string name="error">Грешка</string>
+    <string name="retry">Обиди се повторно</string>
+    <string name="cancel">Откажи</string>
+    <string name="save">Зачувај</string>
+    <string name="edit">Уреди</string>
+    <string name="delete">Избриши</string>
+    <string name="search">Пребарај</string>
 </resources>
