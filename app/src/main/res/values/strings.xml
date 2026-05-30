@@ -2,6 +2,7 @@
 <resources>
     <!-- App -->
     <string name="app_name">TriviaClash</string>
+    <string name="default_web_client_id">700382746155-j55i19425ua40dr5ne02ugcd8e3n5ike.apps.googleusercontent.com</string>
 
     <!-- Auth -->
     <string name="login">Login</string>

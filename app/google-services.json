@@ -12,7 +12,20 @@
           "package_name": "com.triviaclash.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "700382746155-472ikfokqldol9ueqcmmvhrdpap2ludf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.triviaclash.app",
+            "certificate_hash": "a08106992e155893894c86c91cd0fffa292f33db"
+          }
+        },
+        {
+          "client_id": "700382746155-j55i19425ua40dr5ne02ugcd8e3n5ike.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDq4wp-sHxMcavatNaMDkZ-9wSlordFlCI"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "700382746155-j55i19425ua40dr5ne02ugcd8e3n5ike.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
