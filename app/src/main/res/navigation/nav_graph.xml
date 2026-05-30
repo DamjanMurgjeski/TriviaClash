@@ -72,6 +72,10 @@
         android:id="@+id/quizFragment"
         android:name="com.triviaclash.app.fragments.QuizFragment"
         android:label="Quiz">
+        <argument
+            android:name="category"
+            app:argType="string"
+            android:defaultValue="science" />
         <action
             android:id="@+id/action_quiz_to_results"
             app:destination="@id/resultsFragment" />

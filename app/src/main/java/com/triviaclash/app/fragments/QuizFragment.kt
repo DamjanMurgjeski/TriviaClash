@@ -30,9 +30,12 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     }
 
     private fun loadQuestionsFromFirestore() {
+        val category = arguments?.getString("category") ?: "science"
+        val quizId = "quiz_$category"
+
         val db = FirebaseFirestore.getInstance()
         db.collection("questions")
-            .whereEqualTo("quizId", "quiz_001")
+            .whereEqualTo("quizId", quizId)
             .get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
@@ -50,6 +53,8 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                 }
                 if (questions.isNotEmpty()) {
                     displayQuestion()
+                } else {
+                    loadDemoQuestions()
                 }
             }
             .addOnFailureListener {
@@ -58,8 +63,8 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     }
 
     private fun loadDemoQuestions() {
-        questions.add(Question("1", "quiz_001", "What is 2+2?", "3", "4", "5", "6", "B"))
-        questions.add(Question("2", "quiz_001", "Capital of France?", "London", "Paris", "Berlin", "Madrid", "B"))
+        questions.add(Question("1", "demo", "What is 2+2?", "3", "4", "5", "6", "B"))
+        questions.add(Question("2", "demo", "Capital of France?", "London", "Paris", "Berlin", "Madrid", "B"))
         displayQuestion()
     }
 

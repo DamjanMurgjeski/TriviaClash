@@ -33,7 +33,9 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         )
 
         val adapter = CategoryAdapter(categories) { category ->
-            findNavController().navigate(R.id.action_category_to_quiz)
+            val bundle = Bundle()
+            bundle.putString("category", category.id)
+            findNavController().navigate(R.id.action_category_to_quiz, bundle)
         }
 
         binding.rvCategories.adapter = adapter
