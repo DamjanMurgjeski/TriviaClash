@@ -80,6 +80,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             viewModel.loginAnonymously()
         }
 
+        binding.btnFacebookSignIn.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "Facebook login coming soon!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
         binding.tvForgotPassword.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             if (email.isNotEmpty()) {

@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.facebook.sdk)
 
     // Navigation
     implementation(libs.androidx.navigation.fragment)
@@ -66,6 +67,7 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.analytics)
+
 
     // Google Sign-In
     implementation(libs.play.services.auth)

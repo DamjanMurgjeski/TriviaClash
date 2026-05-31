@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        binding.bottomNavigationView.setupWithNavController(navController)
+        binding.bottomNavigationView?.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -33,10 +33,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.resultsFragment,
                 R.id.settingsFragment,
                 R.id.achievementsFragment -> {
-                    binding.bottomNavigationView.visibility = View.GONE
+                    binding.bottomNavigationView?.visibility = View.GONE
                 }
                 else -> {
-                    binding.bottomNavigationView.visibility = View.VISIBLE
+                    binding.bottomNavigationView?.visibility = View.VISIBLE
                 }
             }
         }

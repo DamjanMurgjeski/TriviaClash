@@ -83,4 +83,8 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="search">Search</string>
+
+    <string name="facebook_app_id" translatable="false">000000000000000</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb000000000000000</string>
+    <string name="facebook_client_token" translatable="false">placeholder_token</string>
 </resources>
