@@ -6,6 +6,7 @@ import android.os.CountDownTimer
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.firestore.FirebaseFirestore
 import com.triviaclash.app.R
 import com.triviaclash.app.databinding.FragmentQuizBinding
@@ -15,6 +16,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
+    private lateinit var analytics: FirebaseAnalytics
 
     private val questions = mutableListOf<Question>()
     private var currentIndex = 0
@@ -25,6 +27,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentQuizBinding.bind(view)
+        analytics = FirebaseAnalytics.getInstance(requireContext())
 
         loadQuestionsFromFirestore()
     }
@@ -32,6 +35,10 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     private fun loadQuestionsFromFirestore() {
         val category = arguments?.getString("category") ?: "science"
         val quizId = "quiz_$category"
+
+        val analyticsBundle = Bundle()
+        analyticsBundle.putString("category", category)
+        analytics.logEvent("quiz_started", analyticsBundle)
 
         val db = FirebaseFirestore.getInstance()
         db.collection("questions")
@@ -70,6 +77,12 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
     private fun displayQuestion() {
         if (currentIndex >= questions.size) {
+            val analyticsBundle = Bundle()
+            analyticsBundle.putInt("final_score", score)
+            analyticsBundle.putInt("correct_answers", correctAnswers)
+            analyticsBundle.putInt("total_questions", questions.size)
+            analytics.logEvent("quiz_completed", analyticsBundle)
+
             val bundle = Bundle()
             bundle.putInt("score", score)
             bundle.putInt("correctAnswers", correctAnswers)
@@ -125,6 +138,11 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         disableAnswerButtons()
 
         val correct = questions[currentIndex].correctAnswer
+
+        val analyticsBundle = Bundle()
+        analyticsBundle.putString("answer_selected", selected)
+        analyticsBundle.putBoolean("is_correct", selected == correct)
+        analytics.logEvent("quiz_answer", analyticsBundle)
 
         if (selected == correct) {
             score += 100
