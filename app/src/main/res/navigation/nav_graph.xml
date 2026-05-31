@@ -128,4 +128,9 @@
         android:name="com.triviaclash.app.fragments.AchievementsFragment"
         android:label="Achievements" />
 
+    <fragment
+        android:id="@+id/matchHistoryFragment"
+        android:name="com.triviaclash.app.fragments.MatchHistoryFragment"
+        android:label="Match History" />
+
 </navigation>

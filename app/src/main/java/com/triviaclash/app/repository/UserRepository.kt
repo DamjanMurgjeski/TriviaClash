@@ -91,14 +91,19 @@ class UserRepository(
     ) {
         try {
             val userRef = firestore.collection("users").document(uid)
+            var username = "Guest"
+            var newXP = 0
+            var newLevel = 1
+
             firestore.runTransaction { transaction ->
                 val snapshot = transaction.get(userRef)
                 val currentXP = snapshot.getLong("xp")?.toInt() ?: 0
                 val currentCoins = snapshot.getLong("coins")?.toInt() ?: 0
                 val currentGames = snapshot.getLong("totalGames")?.toInt() ?: 0
                 val currentHighScore = snapshot.getLong("highestScore")?.toInt() ?: 0
-                val newXP = currentXP + xpToAdd
-                val newLevel = (newXP / 500) + 1
+                username = snapshot.getString("username") ?: "Guest"
+                newXP = currentXP + xpToAdd
+                newLevel = (newXP / 500) + 1
                 val newHighScore = maxOf(currentHighScore, score)
 
                 transaction.update(userRef, mapOf(
@@ -125,6 +130,19 @@ class UserRepository(
                 .document(uid)
                 .collection("match_history")
                 .add(matchData)
+                .await()
+
+            // Ажурирај Leaderboard
+            val leaderboardData = hashMapOf(
+                "uid" to uid,
+                "username" to username,
+                "xp" to newXP,
+                "level" to newLevel,
+                "weeklyScore" to score
+            )
+            firestore.collection("leaderboard")
+                .document(uid)
+                .set(leaderboardData)
                 .await()
 
         } catch (e: Exception) {
