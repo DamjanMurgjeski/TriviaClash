@@ -126,7 +126,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                     score = score,
                     correct = correctAnswers,
                     total = questions.size,
-                    quizTitle = "$currentCategory Quiz",
+                    quizTitle = "${currentCategory.replaceFirstChar { it.uppercase() }} Quiz",
                     category = currentCategory
                 )
             }
