@@ -194,6 +194,14 @@
             android:layout_height="wrap_content"
             android:text="@string/match_history"
             app:cornerRadius="12dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSettings"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/settings"
+            app:cornerRadius="12dp" />
 
     </LinearLayout>
 

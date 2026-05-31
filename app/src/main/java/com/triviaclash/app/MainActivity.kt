@@ -24,14 +24,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        // Скриј го Bottom Nav на Splash, Login, Register
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.splashFragment,
                 R.id.loginFragment,
                 R.id.registerFragment,
                 R.id.quizFragment,
-                R.id.resultsFragment -> {
+                R.id.resultsFragment,
+                R.id.settingsFragment,
+                R.id.achievementsFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
                 else -> {

@@ -31,6 +31,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.btnAchievements.setOnClickListener {
             findNavController().navigate(R.id.achievementsFragment)
         }
+
+        binding.btnMatchHistory.setOnClickListener {
+            findNavController().navigate(R.id.leaderboardFragment)
+        }
+
+        binding.btnSettings.setOnClickListener {
+            findNavController().navigate(R.id.settingsFragment)
+        }
     }
 
     override fun onDestroyView() {
