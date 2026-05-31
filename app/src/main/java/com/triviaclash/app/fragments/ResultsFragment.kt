@@ -21,10 +21,22 @@ class ResultsFragment : Fragment(R.layout.fragment_results) {
     }
 
     private fun setupUI() {
-        binding.tvScore.text = "850"
-        binding.tvCorrectAnswers.text = "8/10"
-        binding.tvXPEarned.text = "+80"
-        binding.tvCoinsEarned.text = "+40"
+        val score = arguments?.getInt("score") ?: 0
+        val correctAnswers = arguments?.getInt("correctAnswers") ?: 0
+        val totalQuestions = arguments?.getInt("totalQuestions") ?: 0
+        val xpEarned = correctAnswers * 10
+        val coinsEarned = correctAnswers * 5
+
+        binding.tvScore.text = score.toString()
+        binding.tvCorrectAnswers.text = "$correctAnswers/$totalQuestions"
+        binding.tvXPEarned.text = "+$xpEarned"
+        binding.tvCoinsEarned.text = "+$coinsEarned"
+
+        binding.tvEmoji.text = when {
+            correctAnswers == totalQuestions -> "🏆"
+            correctAnswers >= totalQuestions / 2 -> "😊"
+            else -> "😢"
+        }
     }
 
     private fun setupClickListeners() {

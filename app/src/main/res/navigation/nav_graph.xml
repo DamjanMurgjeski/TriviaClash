@@ -85,6 +85,18 @@
         android:id="@+id/resultsFragment"
         android:name="com.triviaclash.app.fragments.ResultsFragment"
         android:label="Results">
+        <argument
+            android:name="score"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="correctAnswers"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="totalQuestions"
+            app:argType="integer"
+            android:defaultValue="0" />
         <action
             android:id="@+id/action_results_to_home"
             app:destination="@id/homeFragment" />

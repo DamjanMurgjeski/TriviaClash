@@ -70,7 +70,11 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
     private fun displayQuestion() {
         if (currentIndex >= questions.size) {
-            findNavController().navigate(R.id.action_quiz_to_results)
+            val bundle = Bundle()
+            bundle.putInt("score", score)
+            bundle.putInt("correctAnswers", correctAnswers)
+            bundle.putInt("totalQuestions", questions.size)
+            findNavController().navigate(R.id.action_quiz_to_results, bundle)
             return
         }
 
