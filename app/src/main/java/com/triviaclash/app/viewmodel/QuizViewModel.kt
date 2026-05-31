@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.triviaclash.app.models.Question
 import com.triviaclash.app.repository.QuizRepository
 import com.triviaclash.app.repository.UserRepository
-import com.triviaclash.app.room.RecentMatch
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -87,7 +86,16 @@ class QuizViewModel(
             val xpEarned = _correctAnswers.value * 10
             val coinsEarned = _correctAnswers.value * 5
             val uid = userRepository.currentUser?.uid ?: return@launch
-            userRepository.updateUserXP(uid, xpEarned, coinsEarned)
+            userRepository.updateUserStats(
+                uid = uid,
+                xpToAdd = xpEarned,
+                coinsToAdd = coinsEarned,
+                score = _score.value,
+                correct = _correctAnswers.value,
+                total = _questions.value.size,
+                quizTitle = quizTitle,
+                category = category
+            )
         }
     }
 }

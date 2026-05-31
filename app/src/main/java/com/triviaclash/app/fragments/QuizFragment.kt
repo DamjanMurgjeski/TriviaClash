@@ -5,24 +5,30 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.triviaclash.app.R
 import com.triviaclash.app.databinding.FragmentQuizBinding
 import com.triviaclash.app.models.Question
+import com.triviaclash.app.repository.UserRepository
+import kotlinx.coroutines.launch
 
 class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
     private lateinit var analytics: FirebaseAnalytics
+    private val userRepository = UserRepository()
 
     private val questions = mutableListOf<Question>()
     private var currentIndex = 0
     private var score = 0
     private var correctAnswers = 0
     private var timer: CountDownTimer? = null
+    private var currentCategory = "science"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,11 +39,11 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     }
 
     private fun loadQuestionsFromFirestore() {
-        val category = arguments?.getString("category") ?: "science"
-        val quizId = "quiz_$category"
+        currentCategory = arguments?.getString("category") ?: "science"
+        val quizId = "quiz_$currentCategory"
 
         val analyticsBundle = Bundle()
-        analyticsBundle.putString("category", category)
+        analyticsBundle.putString("category", currentCategory)
         analytics.logEvent("quiz_started", analyticsBundle)
 
         val db = FirebaseFirestore.getInstance()
@@ -77,17 +83,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
     private fun displayQuestion() {
         if (currentIndex >= questions.size) {
-            val analyticsBundle = Bundle()
-            analyticsBundle.putInt("final_score", score)
-            analyticsBundle.putInt("correct_answers", correctAnswers)
-            analyticsBundle.putInt("total_questions", questions.size)
-            analytics.logEvent("quiz_completed", analyticsBundle)
-
-            val bundle = Bundle()
-            bundle.putInt("score", score)
-            bundle.putInt("correctAnswers", correctAnswers)
-            bundle.putInt("totalQuestions", questions.size)
-            findNavController().navigate(R.id.action_quiz_to_results, bundle)
+            saveResultsAndNavigate()
             return
         }
 
@@ -108,6 +104,39 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         binding.btnAnswerB.setOnClickListener { checkAnswer("B") }
         binding.btnAnswerC.setOnClickListener { checkAnswer("C") }
         binding.btnAnswerD.setOnClickListener { checkAnswer("D") }
+    }
+
+    private fun saveResultsAndNavigate() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid != null) {
+            val xpEarned = correctAnswers * 10
+            val coinsEarned = correctAnswers * 5
+
+            val analyticsBundle = Bundle()
+            analyticsBundle.putInt("final_score", score)
+            analyticsBundle.putInt("correct_answers", correctAnswers)
+            analyticsBundle.putInt("total_questions", questions.size)
+            analytics.logEvent("quiz_completed", analyticsBundle)
+
+            lifecycleScope.launch {
+                userRepository.updateUserStats(
+                    uid = uid,
+                    xpToAdd = xpEarned,
+                    coinsToAdd = coinsEarned,
+                    score = score,
+                    correct = correctAnswers,
+                    total = questions.size,
+                    quizTitle = "$currentCategory Quiz",
+                    category = currentCategory
+                )
+            }
+        }
+
+        val bundle = Bundle()
+        bundle.putInt("score", score)
+        bundle.putInt("correctAnswers", correctAnswers)
+        bundle.putInt("totalQuestions", questions.size)
+        findNavController().navigate(R.id.action_quiz_to_results, bundle)
     }
 
     private fun startTimer() {

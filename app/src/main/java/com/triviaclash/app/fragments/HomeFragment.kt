@@ -28,6 +28,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         loadUserData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadUserData()
+    }
+
     private fun setupUI() {
         val user = FirebaseAuth.getInstance().currentUser
         binding.tvUsername.text = user?.displayName ?: user?.email?.substringBefore("@") ?: "Player"
