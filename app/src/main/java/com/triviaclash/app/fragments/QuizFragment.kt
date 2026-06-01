@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -149,6 +150,13 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                 val secondsLeft = (millisUntilFinished / 1000).toInt()
                 binding.tvTimer.text = secondsLeft.toString()
                 binding.progressTimer.progress = secondsLeft
+
+                // Промени боја кога останува малку време
+                when {
+                    secondsLeft <= 5 -> binding.tvTimer.setTextColor(Color.RED)
+                    secondsLeft <= 10 -> binding.tvTimer.setTextColor(Color.YELLOW)
+                    else -> binding.tvTimer.setTextColor(Color.parseColor("#FF6D00"))
+                }
             }
 
             override fun onFinish() {
@@ -167,6 +175,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         disableAnswerButtons()
 
         val correct = questions[currentIndex].correctAnswer
+        val timeBonus = binding.progressTimer.progress * 2
 
         val analyticsBundle = Bundle()
         analyticsBundle.putString("answer_selected", selected)
@@ -174,9 +183,17 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         analytics.logEvent("quiz_answer", analyticsBundle)
 
         if (selected == correct) {
-            score += 100
+            score += 100 + timeBonus
             correctAnswers++
             highlightButton(selected, Color.parseColor("#4CAF50"))
+
+            if (timeBonus > 30) {
+                Toast.makeText(
+                    requireContext(),
+                    "⚡ Speed Bonus! +$timeBonus pts",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         } else {
             highlightButton(selected, Color.parseColor("#F44336"))
             highlightButton(correct, Color.parseColor("#4CAF50"))
