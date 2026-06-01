@@ -49,7 +49,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
                     binding.tvTotalGames.text = totalGames.toString()
                     binding.tvHighScore.text = highestScore.toString()
-                    binding.tvWinRate.text = if (totalGames > 0) "${(xp / totalGames)}%" else "0%"
+                    val totalCorrect = doc.getLong("totalCorrect")?.toInt() ?: 0
+                    val totalQuestions = doc.getLong("totalQuestions")?.toInt() ?: 0
+                    binding.tvWinRate.text = if (totalQuestions > 0) "${(totalCorrect * 100 / totalQuestions)}%" else "0%"
                     binding.tvLevel.text = "Level $level"
                 }
             }

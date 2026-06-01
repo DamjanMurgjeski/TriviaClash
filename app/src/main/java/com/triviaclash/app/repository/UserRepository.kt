@@ -135,6 +135,9 @@ class UserRepository(
                     else -> 1
                 }
 
+                val currentTotalCorrect = snapshot.getLong("totalCorrect")?.toInt() ?: 0
+                val currentTotalQuestions = snapshot.getLong("totalQuestions")?.toInt() ?: 0
+
                 transaction.update(userRef, mapOf(
                     "xp" to newXP,
                     "level" to newLevel,
@@ -142,8 +145,11 @@ class UserRepository(
                     "totalGames" to currentGames + 1,
                     "highestScore" to newHighScore,
                     "streak" to newStreak,
-                    "lastPlayedAt" to now
+                    "lastPlayedAt" to now,
+                    "totalCorrect" to currentTotalCorrect + correct,
+                    "totalQuestions" to currentTotalQuestions + total
                 ))
+
             }.await()
 
             // Зачувај match history
