@@ -1,5 +1,6 @@
 package com.triviaclash.app.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -46,6 +47,18 @@ class ResultsFragment : Fragment(R.layout.fragment_results) {
 
         binding.btnBackHome.setOnClickListener {
             findNavController().navigate(R.id.action_results_to_home)
+        }
+
+        binding.btnShare.setOnClickListener {
+            val score = arguments?.getInt("score") ?: 0
+            val correct = arguments?.getInt("correctAnswers") ?: 0
+            val total = arguments?.getInt("totalQuestions") ?: 0
+            val shareText = "🎮 TriviaClash Results!\n🏆 Score: $score\n✅ Correct: $correct/$total\nCan you beat me?"
+
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, shareText)
+            startActivity(Intent.createChooser(intent, "Share your score!"))
         }
     }
 
