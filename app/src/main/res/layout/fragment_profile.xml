@@ -26,6 +26,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangePhoto"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/change_photo"
+                android:textSize="9sp"
+                android:padding="4dp"
+                app:cornerRadius="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivProfileImage" />
+
             <TextView
                 android:id="@+id/tvUsername"
                 android:layout_width="0dp"
@@ -194,6 +207,7 @@
             android:layout_height="wrap_content"
             android:text="@string/match_history"
             app:cornerRadius="12dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSettings"
             style="@style/Widget.Material3.Button.OutlinedButton"
